@@ -1,2 +1,2 @@
-# Pool-Temperature
-Django project to monitor pool temperature with Raspberry Pi and integrate with SmartThings
+# Pool Monitor
+Django project to monitor pool settings (temperature, etc) with Raspberry Pi and integrate with SmartThings
