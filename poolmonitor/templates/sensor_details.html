@@ -1,0 +1,23 @@
+<html>
+    <head>
+        <style>
+            body {
+                background-color: #33CCFF;
+            }
+            h1 {
+                text-align: center;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Pool Monitor</h1>
+        <hr>
+        <table>
+            <tr><th>{{ sensor.description_text.label }}</th><td>{{ sensor.description_text }}</td></tr>
+            <tr><th>{{ sensor.file_system_location.label }}</th><td>{{ sensor.file_system_location }}</td></tr>
+            <tr><th>{{ sensor.polling_interval.label }}</th><td>{{ sensor.polling_interval }}</td></tr>
+            <tr><th>{{ sensor.location_image.label }}</th><td>{{ sensor.location_image }}</td></tr>
+            <tr><th>{{ sensor.reading_type.label }}</th><td>{{ sensor.reading_type }}</td></tr>
+        </table>
+    </body>
+</html>

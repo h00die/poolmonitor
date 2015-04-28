@@ -1,0 +1,41 @@
+<html>
+    <head>
+        <style>
+            td {
+                border-style: dotted;
+                border: 1;
+            }
+            body {
+                background-color: #33CCFF;
+            }
+            h1 {
+                text-align: center;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Pool Monitor</h1>
+        <hr>
+        {% if sensors %}
+            <table cellspacing="10px">
+                <tr>
+                    {% for s in sensors %}
+                        <td>
+                            <p><a href="{% url 'detail' s.file_system_location %}">{{ s.description_text }}</a></p>
+                            <h1>
+                                {% if s.reading_type == "temp" %}
+                                    {{ s.reading_set.latest }}*F
+                                {% else %}
+                                    {{ s.reading_set.latest }}
+                                {% endif %}
+                            </h1>
+                        </td>
+
+                    {% endfor %}
+                </tr>
+            </table>
+        {% else %}
+            <p>No Sensors Found</p>
+        {% endif %}
+    </body>
+</html>
