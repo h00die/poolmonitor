@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.urlresolvers import reverse
 from django.utils import timezone
 
 class Sensor(models.Model):
@@ -17,6 +18,9 @@ class Sensor(models.Model):
     polling_interval     = models.IntegerField('Frequency to check temperature in minutes', default=15)
     location_image       = models.ImageField('Optional image of location', blank=True)
     reading_type         = models.CharField('Reading Type', choices=readingChoices, max_length=4)
+
+    def get_absolute_url(self):
+        return reverse('detail', kwargs={'sensor_file_system_location': self.file_system_location})
 
     def __str__(self):
         return "%s (%s)" %(self.description_text, self.file_system_location)

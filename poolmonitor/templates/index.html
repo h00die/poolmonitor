@@ -1,21 +1,15 @@
-<html>
-    <head>
-        <style>
+{% extends "base_generic.html" %}
+
+{% block headers %}
+    <style>
             td {
                 border-style: dotted;
                 border: 1;
             }
-            body {
-                background-color: #33CCFF;
-            }
-            h1 {
-                text-align: center;
-            }
-        </style>
-    </head>
-    <body>
-        <h1>Pool Monitor</h1>
-        <hr>
+    </style>
+{% endblock %}
+
+{% block content %}
         {% if sensors %}
             <table cellspacing="10px">
                 <tr>
@@ -30,12 +24,13 @@
                                 {% endif %}
                             </h1>
                         </td>
-
                     {% endfor %}
+                    <td>
+                        <a href="{% url 'create' %}"><button type="button">Add New</button> </a>
+                    </td>
                 </tr>
             </table>
         {% else %}
             <p>No Sensors Found</p>
         {% endif %}
-    </body>
-</html>
+{% endblock %}

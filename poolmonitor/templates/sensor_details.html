@@ -1,23 +1,25 @@
-<html>
-    <head>
-        <style>
-            body {
-                background-color: #33CCFF;
+{% extends "base_generic.html" %}
+
+{% block headers %}
+    <style>
+            th {
+                text-align: left;
             }
-            h1 {
-                text-align: center;
-            }
-        </style>
-    </head>
-    <body>
-        <h1>Pool Monitor</h1>
-        <hr>
+    </style>
+{% endblock %}
+
+{% block content %}
         <table>
-            <tr><th>{{ sensor.description_text.label }}</th><td>{{ sensor.description_text }}</td></tr>
-            <tr><th>{{ sensor.file_system_location.label }}</th><td>{{ sensor.file_system_location }}</td></tr>
-            <tr><th>{{ sensor.polling_interval.label }}</th><td>{{ sensor.polling_interval }}</td></tr>
-            <tr><th>{{ sensor.location_image.label }}</th><td>{{ sensor.location_image }}</td></tr>
-            <tr><th>{{ sensor.reading_type.label }}</th><td>{{ sensor.reading_type }}</td></tr>
+            <tr><th>Sensor: </th><td>{{ sensor.description_text }}</td></tr>
+            <tr><th>File System Location: </th><td>/sys/bus/w1/devices/{{ sensor.file_system_location }}</td></tr>
+            <tr><th>Polling Interval: </th><td>{{ sensor.polling_interval }}min</td></tr>
+            {% if sensor.location_image %}
+                <tr><th>Location: </th><td>{{ sensor.location_image }}</td></tr>
+            {% endif %}
+            <tr><th>Reading Value: </th><td>{{ sensor.reading_type }}</td></tr>
+            <tr><th><a href="{% url 'edit' sensor.file_system_location %}"><button type="button">Edit Sensor</button></a></th>
+                <td><a href="{% url 'delete' sensor.file_system_location %}"><button type="button">Delete Sensor</button></a></td></tr>
         </table>
-    </body>
-</html>
+        <hr>
+        <p>Last</p>
+{% endblock %}
