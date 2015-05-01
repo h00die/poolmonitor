@@ -15,7 +15,7 @@
                 <tr>
                     {% for s in sensors %}
                         <td>
-                            <p><a href="{% url 'detail' s.file_system_location %}">{{ s.description_text }}</a></p>
+                            <p><a href="{% url 'detail' s.file_system_location %}">{{ s.description_text.title }}</a></p>
                             <h1>
                                 {% if s.reading_type == "temp" %}
                                     {{ s.reading_set.latest }}*F

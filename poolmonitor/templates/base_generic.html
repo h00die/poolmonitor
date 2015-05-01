@@ -1,3 +1,5 @@
+{% load staticfiles %}
+
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
 <html lang="en">
     <head>
@@ -9,6 +11,7 @@
                 text-align: center;
             }
         </style>
+        <script src="{% static "jquery-1.11.2.min.js" %}"></script>
         {% block headers %}{% endblock %}
         <title>{% block title %}Pool Monitor{% endblock %}</title>
     </head>

@@ -7,7 +7,7 @@ class Sensor(models.Model):
         Each sensor, since we can have multiple (pool, hot tub, fridge etc)
     """
     readingChoices = (
-        ('temp', 'Temperature'),
+        ('Temp', 'Temperature'),
         ('pH', 'Acidity')
     )
 

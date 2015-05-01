@@ -5,6 +5,9 @@
             th {
                 text-align: left;
             }
+            h2{
+                text-align: center;
+            }
     </style>
 {% endblock %}
 
@@ -21,5 +24,38 @@
                 <td><a href="{% url 'delete' sensor.file_system_location %}"><button type="button">Delete Sensor</button></a></td></tr>
         </table>
         <hr>
-        <p>Last</p>
+        <h2>Readings</h2>
+        <p>View Last
+                <select id="timeframe">
+                        <option value={% widthratio 180 sensor.polling_interval 1 %}>3 Hours</option>
+                        <option value={% widthratio 1440 sensor.polling_interval 1 %}>24 Hours</option>
+                        <option value={% widthratio 10080 sensor.polling_interval 1 %}>1 Week</option>
+                        <option value={% widthratio 30240 sensor.polling_interval 1 %}>3 Week</option>
+                </select>
+        Readings</p>
+        <table>
+                <tr>
+                        <td><div id="graph"></div></td>
+                        <td><div id="chart"></div></td>
+                </tr>
+        </table>
+        <script>
+                $("#timeframe").change(function(){
+                        $("#graph, #chart").empty();
+                        timeframe = $("#timeframe").val();
+                        params = $.param({
+                                sensor:"{{ sensor.file_system_location }}",
+                                count:timeframe
+                        });
+                        //create graph
+                        var src = '/graph/?' + params;
+                        $("#graph").append('<img width=500 height=300 src="'+src+'">');
+                        var src = '/chart/?' + params;
+                        //create chart
+                        $.ajax(src).done(function( data ) {
+                                $("#chart").append(data);
+                        });
+                });
+                $("#timeframe").trigger("change");//cause the event to kickoff
+        </script>
 {% endblock %}
