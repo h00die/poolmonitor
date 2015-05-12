@@ -5,7 +5,7 @@ from django import forms
 import re
 from django.core.urlresolvers import reverse_lazy
 
-import tempfile
+import tempfile, os
 os.environ['MPLCONFIGDIR'] = tempfile.mkdtemp()
 import matplotlib.pyplot as plt
 
