@@ -10,9 +10,9 @@
 {% endblock %}
 
 {% block content %}
-        {% if sensors %}
-            <table cellspacing="10px">
-                <tr>
+        <table cellspacing="10px">
+            <tr>
+                {% if sensors %}
                     {% for s in sensors %}
                         <td>
                             <p><a href="{% url 'detail' s.file_system_location %}">{{ s.description_text.title }}</a></p>
@@ -25,12 +25,12 @@
                             </h1>
                         </td>
                     {% endfor %}
+                {% else %}
+                    <p>No Sensors Found</p>
+                {% endif %}
                     <td>
                         <a href="{% url 'create' %}"><button type="button">Add New</button> </a>
                     </td>
                 </tr>
             </table>
-        {% else %}
-            <p>No Sensors Found</p>
-        {% endif %}
 {% endblock %}
