@@ -1,13 +1,13 @@
 from django.shortcuts import render
 from django.http import Http404, HttpResponse
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-import matplotlib.pyplot as plt
 from django import forms
 import re
 from django.core.urlresolvers import reverse_lazy
 
 import tempfile
 os.environ['MPLCONFIGDIR'] = tempfile.mkdtemp()
+import matplotlib.pyplot as plt
 
 from .models import Sensor, Reading
 
