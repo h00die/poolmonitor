@@ -6,6 +6,9 @@ from django import forms
 import re
 from django.core.urlresolvers import reverse_lazy
 
+import tempfile
+os.environ['MPLCONFIGDIR'] = tempfile.mkdtemp()
+
 from .models import Sensor, Reading
 
 def index(request):
