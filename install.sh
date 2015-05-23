@@ -8,7 +8,7 @@
 sudo apt-get update
 sudo apt-get dist-upgrade
 sudo apt-get autoremove
-sudo apt-get install python-dev python-setuptools python-pip nginx libpcre3 libpcre3-dev python-matplotlib liblapack-dev gfortran libblas-dev
+sudo apt-get install python-dev python-setuptools python-pip nginx libpcre3 libpcre3-dev python-matplotlib liblapack-dev gfortran libblas-dev rabbitmq-server
 sudo easy_install pip
 sudo easy_install scipy
 sudo pip install virtualenv virtualenvwrapper
@@ -26,6 +26,8 @@ cd /webapps
 sudo ln -s /webapps/poolmonitor/poolwebsite/mysite_nginx.conf /etc/nginx/sites-enabled/
 sudo rm  /etc/nginx/sites-enabled/default
 python manage.py collectstatic --noinput
+sudo mkdir -p /var/run/celery
+sudo mkdir -p /var/log/celery
 deactivate
 sudo pip install uwsgi
 sudo mkdir -p /etc/uwsgi/vassals

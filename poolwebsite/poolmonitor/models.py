@@ -10,6 +10,10 @@ class Sensor(models.Model):
         ('Temp', 'Temperature'),
         ('pH', 'Acidity')
     )
+    readingUnits = (
+        ('F', 'Fahrenheit'),
+        ('C', 'Celsius')
+    )
 
     description_text     = models.CharField('Sensor Description', max_length=255)
     file_system_location = models.CharField('File System location of Sensor in /sys/bus/w1/devices/', max_length=50, default='28-nnnnn',
@@ -18,6 +22,7 @@ class Sensor(models.Model):
     polling_interval     = models.IntegerField('Frequency to check temperature in minutes', default=15)
     location_image       = models.ImageField('Optional image of location (possible future implementation)', blank=True)
     reading_type         = models.CharField('Reading Type', choices=readingChoices, max_length=4)
+    reading_units        = models.CharField('Reading Measurement Units', choices=readingUnits, max_length=2)
 
     def get_absolute_url(self):
         return reverse('detail', kwargs={'sensor_file_system_location': self.file_system_location})

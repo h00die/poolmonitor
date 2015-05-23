@@ -85,3 +85,14 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, "static/")
+
+#djcelery settings
+CELERY_RESULT_BACKEND='djcelery.backends.database:DatabaseBackend'
+CELERY_TIMEZONE = 'UTC'
+CELERYBEAT_SCHEDULE = {
+    # Executes every minute
+    'Check-Sensors': {
+        'task': 'tasks.read_sensors',
+        'schedule': crontab(minute='*/1')
+    },
+}
