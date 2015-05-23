@@ -16,7 +16,7 @@ class Sensor(models.Model):
                                             help_text="To determine your device run 'ls /sys/bus/w1/devices and look for items with 28- in their name'",
                                             primary_key=True)
     polling_interval     = models.IntegerField('Frequency to check temperature in minutes', default=15)
-    location_image       = models.ImageField('Optional image of location', blank=True)
+    location_image       = models.ImageField('Optional image of location (possible future implementation)', blank=True)
     reading_type         = models.CharField('Reading Type', choices=readingChoices, max_length=4)
 
     def get_absolute_url(self):
