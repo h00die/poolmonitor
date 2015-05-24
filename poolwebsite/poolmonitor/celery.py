@@ -4,8 +4,21 @@ from poolmonitor import models
 from django.utils import timezone
 from proj.celery import app
 import os
+from celery import Celery
 
-#this lower portion of the code is loosely based off of Simon Monk's code @ https://learn.adafruit.com/adafruits-raspberry-pi-lesson-11-ds18b20-temperature-sensing/software
+# set the default Django settings module for the 'celery' program.
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'poolwebsite.settings')
+
+from django.conf import settings
+
+app = Celery('poolwebsite')
+
+# Using a string here means the worker will not have to
+# pickle the object when using Windows.
+app.config_from_object('django.conf:settings')
+app.autodiscover_tasks(lambda: settings.INSTALLED_APPS)
+
+#this code is loosely based off of Simon Monk's code @ https://learn.adafruit.com/adafruits-raspberry-pi-lesson-11-ds18b20-temperature-sensing/software
 
 #this should be handled outside of this python script
 #import os
