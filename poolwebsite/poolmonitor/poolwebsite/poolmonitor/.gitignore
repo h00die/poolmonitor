@@ -55,4 +55,3 @@ docs/_build/
 
 # PyBuilder
 target/
-poolwebsite/poolmonitor/poolwebsite/db.sqlite3
