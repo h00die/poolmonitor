@@ -1,8 +1,22 @@
+from __future__ import absolute_import
 import time
 import models
 from django.utils import timezone
-from __future__ import absolute_import
 from proj.celery import app
+import os
+from celery import Celery
+
+# set the default Django settings module for the 'celery' program.
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'poolwebsite.settings')
+
+from django.conf import settings
+
+app = Celery('poolwebsite')
+
+# Using a string here means the worker will not have to
+# pickle the object when using Windows.
+app.config_from_object('django.conf:settings')
+app.autodiscover_tasks(lambda: settings.INSTALLED_APPS)
 
 #this code is loosely based off of Simon Monk's code @ https://learn.adafruit.com/adafruits-raspberry-pi-lesson-11-ds18b20-temperature-sensing/software
 
@@ -35,7 +49,7 @@ def save_result(sensor, lines):
             print('   Reading %s' %(temp_c))
         r.save()
 
-@app.task
+@app.task(bind=True)
 def read_sensors():
     '''
         main loop for getting the sensors, and handling retrieving the data.
