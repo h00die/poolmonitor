@@ -54,7 +54,7 @@ def read_sensors():
     '''
         main loop for getting the sensors, and handling retrieving the data.
     '''
-    for sensor in models.Sensor.objects.all()
+    for sensor in models.Sensor.objects.all():
         whenToPoll = sensor.reading.latest(reading_date)
         if whenToPoll:
             whenToPoll = whenToPoll + datetime.timedelta(0, 0, 0, 0, sensor.polling_interval) #minutes
