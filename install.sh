@@ -38,6 +38,6 @@ sudo su
 echo "poolmonitor" > /etc/hostname
 exit
 source /webapps/venv/bin/activate
-python /webapps/poolwebsite/manage.py syncdb --noinput
+python /webapps/poolmonitor/poolwebsite/manage.py --noinput
 deactivate
 cp -r /usr/lib/pymodules/python2.7/matplotlib /webapps/venv/lib/python2.7
