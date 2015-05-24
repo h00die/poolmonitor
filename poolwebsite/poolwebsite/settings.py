@@ -93,7 +93,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 #djcelery settings
 CELERY_RESULT_BACKEND='djcelery.backends.database:DatabaseBackend'
 CELERY_TIMEZONE = 'UTC'
-from poolmonitor.celery import read_sensors
+from poolmonitor.celery_tasks import read_sensors
 CELERYBEAT_SCHEDULE = {
     # Executes every minute
     'Check-Sensors': {
