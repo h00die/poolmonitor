@@ -1,0 +1,25 @@
+{% extends "base_generic.html" %}
+
+{% block headers %}
+    <style>
+            th {
+                text-align: left;
+            }
+            .helptext{
+                color: grey;
+            }
+            .errorlist{
+                color: red;
+                list-style-type: none;
+            }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <form action="" method="post">{% csrf_token %}
+        <table>
+            {{ form.as_table }}
+        </table>
+            <input type="submit" value="Create" />
+    </form>
+{% endblock %}
