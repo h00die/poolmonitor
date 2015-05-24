@@ -1,5 +1,9 @@
 from __future__ import absolute_import
-import os
+import os, sys
+
+#really unsure why i need to add this but uwsgi is failing miserably w/o it
+sys.path.insert(0,'/webapps/venv/lib/python2.7/site-packages/')
+
 from celery import Celery
 from celery.schedules import crontab
 
@@ -8,9 +12,9 @@ CELERY_RESULT_BACKEND='djcelery.backends.database:DatabaseBackend'
 CELERY_TIMEZONE = 'UTC'
 
 # set the default Django settings module for the 'celery' program.
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'poolwebsite.settings')
+#os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'poolwebsite.settings')
 
-from django.conf import settings
+#from django.conf import settings
 
 app = Celery('poolwebsite')
 
@@ -26,3 +30,6 @@ CELERYBEAT_SCHEDULE = {
         'schedule': crontab(minute='*/1')
     },
 }
+
+if __name__ == '__main__':
+    app.start()
