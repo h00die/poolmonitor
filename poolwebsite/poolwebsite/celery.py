@@ -1,8 +1,10 @@
 from __future__ import absolute_import
-
 import os
-
 from celery import Celery
+
+#djcelery settings
+CELERY_RESULT_BACKEND='djcelery.backends.database:DatabaseBackend'
+CELERY_TIMEZONE = 'UTC'
 
 # set the default Django settings module for the 'celery' program.
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'poolwebsite.settings')
@@ -16,7 +18,10 @@ app = Celery('poolwebsite')
 app.config_from_object('django.conf:settings')
 app.autodiscover_tasks(lambda: settings.INSTALLED_APPS)
 
-
-@app.task(bind=True)
-def debug_task(self):
-    print('Request: {0!r}'.format(self.request))
+CELERYBEAT_SCHEDULE = {
+    # Executes every minute
+    'Check-Sensors': {
+        'task': 'poolmonitor.tasks.read_sensors',
+        'schedule': crontab(minute='*/1')
+    },
+}

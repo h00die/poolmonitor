@@ -2,7 +2,7 @@ from __future__ import absolute_import
 import time
 from poolmonitor import models
 from django.utils import timezone
-from proj.celery import app
+from poolwebsite.celery import app
 import os
 
 #this lower portion of the code is loosely based off of Simon Monk's code @ https://learn.adafruit.com/adafruits-raspberry-pi-lesson-11-ds18b20-temperature-sensing/software
