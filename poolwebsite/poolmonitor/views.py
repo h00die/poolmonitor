@@ -54,7 +54,7 @@ class SensorForm(forms.ModelForm):
     
     def clean_file_system_location(self):
         fsl = self.cleaned_data['file_system_location']
-        regmatch = re.search(r'[0-9\-]+',fsl)
+        regmatch = re.search(r'[0-9\-a-f]+',fsl)
         if not regmatch:
             raise forms.ValidationError("Invalid file.  Check example.")
         else:
