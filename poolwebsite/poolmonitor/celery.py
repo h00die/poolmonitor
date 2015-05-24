@@ -1,6 +1,6 @@
 from __future__ import absolute_import
 import time
-import models
+from poolmonitor import models
 from django.utils import timezone
 from proj.celery import app
 import os
