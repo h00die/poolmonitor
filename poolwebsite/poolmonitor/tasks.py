@@ -54,7 +54,7 @@ def read_sensors():
                     lines = read_temp_raw(sensor.file_system_location)
                     save_result(sensor, lines)
             else:
-                print('[-] Sensor %s waiting on poll time of %s and its currently %s ' %(whenToPoll, timezone.now()))
+                print('[-] Sensor %s waiting on poll time of %s and its currently %s ' %(sensor, whenToPoll, timezone.now()))
                 continue
         else:
             lines = read_temp_raw(sensor.file_system_location)
