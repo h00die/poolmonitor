@@ -19,7 +19,7 @@ def index(request):
 def detail(request, sensor_file_system_location):
     try:
         s = Sensor.objects.get(pk=sensor_file_system_location)
-    except Question.DoesNotExist:
+    except Sensor.DoesNotExist:
         raise Http404("Sensor does not exist")
     return render(request, 'sensor_details.html', {'sensor': s})
 
