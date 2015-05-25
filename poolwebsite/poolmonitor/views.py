@@ -65,7 +65,7 @@ class SensorForm(forms.ModelForm):
 
     class Meta:
         model = Sensor
-        fields = ('description_text', 'file_system_location', 'polling_interval', 'reading_type', 'location_image')
+        fields = ('description_text', 'file_system_location', 'polling_interval', 'reading_type', 'reading_units')
 
 class SensorCreate(CreateView):
     template_name = 'sensor_form.html'

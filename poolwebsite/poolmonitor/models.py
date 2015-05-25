@@ -17,7 +17,7 @@ class Sensor(models.Model):
 
     description_text     = models.CharField('Sensor Description', max_length=255)
     file_system_location = models.CharField('File System location of Sensor in /sys/bus/w1/devices/', max_length=50, default='28-nnnnn',
-                                            help_text="To determine your device run 'ls /sys/bus/w1/devices and look for items with 28- in their name'",
+                                            help_text="To determine your device run 'ls /sys/bus/w1/devices' and look for items with 28- in their name",
                                             primary_key=True)
     polling_interval     = models.IntegerField('Frequency to check temperature in minutes', default=15)
     location_image       = models.ImageField('Optional image of location (possible future implementation)', blank=True)
