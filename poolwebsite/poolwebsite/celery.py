@@ -12,9 +12,9 @@ CELERY_RESULT_BACKEND='djcelery.backends.database:DatabaseBackend'
 CELERY_TIMEZONE = 'UTC'
 
 # set the default Django settings module for the 'celery' program.
-#os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'poolwebsite.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'poolwebsite.settings')
 
-#from django.conf import settings
+from django.conf import settings
 
 app = Celery('poolwebsite')
 
