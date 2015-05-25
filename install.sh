@@ -21,13 +21,11 @@ git clone https://github.com/h00die/poolmonitor.git
 mkvirtualenv /webapps/venv
 cd /webapps/venv/bin/
 source /webapps/venv/bin/activate
-/webapps/venv/bin/pip install django==1.7.6 docutils pillow numpy scipy python-dateutil django-celery librabbitmq
+/webapps/venv/bin/pip install django==1.7.6 docutils pillow numpy scipy python-dateutil
 cd /webapps
 sudo ln -s /webapps/poolmonitor/poolwebsite/mysite_nginx.conf /etc/nginx/sites-enabled/
 sudo rm  /etc/nginx/sites-enabled/default
 python manage.py collectstatic --noinput
-sudo mkdir -p /var/log/celery/run
-sudo chmod -R 777 /var/log/celery
 deactivate
 sudo pip install uwsgi
 sudo mkdir -p /etc/uwsgi/vassals
@@ -46,50 +44,8 @@ sudo chown -R www-data /webapps/poolmonitor/
 
 deactivate
 cp -r /usr/lib/pymodules/python2.7/matplotlib /webapps/venv/lib/python2.7
-#sudo sed -i "/exit 0/c\printf \"Starting Celery\"\n/webapps/venv/bin/celery multi start w1 -A poolwebsite -B -l info --pidfile=/var/log/celery/run/%n.pid --logfile=/var/log/celery/%n%I.log\nexit 0" /etc/rc.local
-sudo echo 'CELERYD_NODES="w1"
-CELERY_BIN="/webapps/venv/bin/celery"
-
-CELERY_APP="poolwebsite"
-CELERYD_CHDIR="/webapps/poolmonitor/poolwebsite"
-export DJANGO_SETTINGS_MODULE="poolwebsite.settings"
-
-# Extra command-line arguments to the worker
-#CELERYD_OPTS="--time-limit=300 --concurrency=8"
-
-# %N will be replaced with the first part of the nodename.
-CELERYD_LOG_FILE="/var/log/celery/%n.log"
-CELERYD_PID_FILE="/var/log/celery/run/%n.pid"
-
-# Workers should run as an unprivileged user.
-#   You need to create this user manually (or you can choose
-#   a user/group combination that already exists, e.g. nobody).
-CELERYD_USER="www-data"
-CELERYD_GROUP="www-data"
-
-# If enabled pid and log directories will be created if missing,
-# and owned by the userid/group configured.
-CELERY_CREATE_DIRS=1
-' > /etc/default/celeryd
-
-sudo echo 'CELERY_BIN="/webapps/venv/bin/celery"
-CELERY_APP="poolwebsite"
-CELERYBEAT_CHDIR="/webapps/poolmonitor/poolwebsite"
-export DJANGO_SETTINGS_MODULE="poolwebsite.settings"
-
-# Extra arguments to celerybeat
-CELERYBEAT_OPTS="--schedule=/var/log/celery/celerybeat-schedule"
-' > /etc/default/celerybeat
-
-sudo wget "https://raw.githubusercontent.com/celery/celery/3.1/extra/generic-init.d/celerybeat" -O /etc/init.d/celerybeat
-sudo wget "https://raw.githubusercontent.com/celery/celery/3.1/extra/generic-init.d/celeryd" -O /etc/init.d/celeryd
-sudo chmod 755 /etc/init.d/celerybeat
-sudo chmod 755 /etc/init.d/celeryd
 
 sudo echo "America/New_York" > /etc/timezone
 sudo update-rc.d -f ntp remove
 sudo update-rc.d ntp defaults
 sudo ntpd -q
-
-sudo update-rc.d celeryd defaults
-sudo update-rc.d celerybeat defaults
