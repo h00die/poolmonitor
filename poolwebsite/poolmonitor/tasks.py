@@ -5,6 +5,8 @@ from django.utils import timezone
 from celery import shared_task
 import os
 import subprocess
+from celery.utils.log import get_task_logger
+logger = get_task_logger(__name__)
 
 #this lower portion of the code is loosely based off of Simon Monk's code @ https://learn.adafruit.com/adafruits-raspberry-pi-lesson-11-ds18b20-temperature-sensing/software
 
@@ -14,6 +16,7 @@ import subprocess
 #os.system('modprobe w1-therm')
 
 def read_temp_raw(device):
+    logger.info('[+] Reading Sensor %s' %(device))
     print('[+] Reading Sensor %s' %(device))
     base_dir    = '/sys/bus/w1/devices/'
     device_file = '/w1_slave'
@@ -31,10 +34,10 @@ def save_result(sensor, lines):
         temp_f = temp_c * 9.0 / 5.0 + 32.0
         if sensor.reading_units == 'F':
             r = models.Reading(reading = temp_f, reading_date = timezone.now(), sensor = sensor)
-            print('   Reading %s*F' %(temp_f))
         elif sensor.reading_units == 'C':
             r = models.Reading(reading = temp_c, reading_date = timezone.now(), sensor = sensor)
-            print('   Reading %s*C' %(temp_c))
+        logger.info('   Reading %s*%s' %(temp_f, sensor.reading_units))
+        print('   Reading %s*%s' %(temp_c, sensor.reading_units))
         r.save()
 
 @shared_task
@@ -56,6 +59,7 @@ def read_sensors():
                     lines = read_temp_raw(sensor.file_system_location)
                     save_result(sensor, lines)
             else:
+                logger.info('[-] Sensor %s waiting on poll time of %s and its currently %s ' %(whenToPoll, tiemzone.now()))
                 print('[-] Sensor %s waiting on poll time of %s and its currently %s ' %(whenToPoll, tiemzone.now()))
                 continue
         else:
