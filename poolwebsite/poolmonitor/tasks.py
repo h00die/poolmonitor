@@ -30,7 +30,7 @@ def save_result(sensor, lines):
         temp_c = float(temp_string) / 1000.0
         temp_f = temp_c * 9.0 / 5.0 + 32.0
         if sensor.reading_units == 'F':
-            r = models.Reading(reading = temp_f, reading_date = timezone.now() sensor = sensor)
+            r = models.Reading(reading = temp_f, reading_date = timezone.now(), sensor = sensor)
             print('   Reading %s*F' %(temp_f))
         elif sensor.reading_units == 'C':
             r = models.Reading(reading = temp_c, reading_date = timezone.now(), sensor = sensor)
