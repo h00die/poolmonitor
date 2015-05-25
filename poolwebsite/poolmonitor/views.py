@@ -7,6 +7,9 @@ from django.core.urlresolvers import reverse_lazy
 
 import tempfile, os
 os.environ['MPLCONFIGDIR'] = tempfile.mkdtemp()
+import matplotlib
+#solve the no display name and no $DISPLAY environment variable issue
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
 from .models import Sensor, Reading
