@@ -17,10 +17,15 @@ def read_temp_raw(device):
     print('[+] Reading Sensor %s' %(device))
     base_dir    = '/sys/bus/w1/devices/'
     device_file = '/w1_slave'
+    print("1")
     catdata = subprocess.Popen(['cat','%s%s%s' %(base_dir, device, device_file)], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    print("2")
     out,err = catdata.communicate()
+    print("3")
     out_decode = out.decode('utf-8')
+    print("4")
     lines = out_decode.split('\n')
+    print("5")
     return lines
 
 def save_result(sensor, lines):
