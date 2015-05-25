@@ -2,7 +2,7 @@ from __future__ import absolute_import
 import time
 from poolmonitor import models
 from django.utils import timezone
-from poolwebsite.celery import app
+from celery import shared_task
 import os
 
 #this lower portion of the code is loosely based off of Simon Monk's code @ https://learn.adafruit.com/adafruits-raspberry-pi-lesson-11-ds18b20-temperature-sensing/software
@@ -36,7 +36,7 @@ def save_result(sensor, lines):
             print('   Reading %s' %(temp_c))
         r.save()
 
-@app.task(bind=True)
+@shared_task
 def read_sensors():
     '''
         main loop for getting the sensors, and handling retrieving the data.
