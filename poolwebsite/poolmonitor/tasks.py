@@ -17,15 +17,10 @@ def read_temp_raw(device):
     print('[+] Reading Sensor %s' %(device))
     base_dir    = '/sys/bus/w1/devices/'
     device_file = '/w1_slave'
-    print("1")
     catdata = subprocess.Popen(['cat','%s%s%s' %(base_dir, device, device_file)], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    print("2")
     out,err = catdata.communicate()
-    print("3")
     out_decode = out.decode('utf-8')
-    print("4")
     lines = out_decode.split('\n')
-    print("5")
     return lines
 
 def save_result(sensor, lines):
@@ -60,7 +55,7 @@ def read_sensors():
                     print(" [x] Sleeping from bad read on sensor")
                     time.sleep(0.2)
                     lines = read_temp_raw(sensor.file_system_location)
-                    save_result(sensor, lines)
+                save_result(sensor, lines)
             else:
                 print('[-] Sensor %s waiting on poll time of %s and its currently %s ' %(sensor, whenToPoll, timezone.now()))
                 continue
