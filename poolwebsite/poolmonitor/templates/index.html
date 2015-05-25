@@ -22,6 +22,7 @@
                                         {{ s.reading_set.latest }}*{{ s.reading_units }}
                                     {% else %}
                                         {{ s.reading_set.latest }}*F
+                                    {% endif %}
                                 {% else %}
                                     {{ s.reading_set.latest }}
                                 {% endif %}

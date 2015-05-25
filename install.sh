@@ -8,7 +8,7 @@
 sudo apt-get update
 sudo apt-get dist-upgrade
 sudo apt-get autoremove
-sudo apt-get install python-dev python-setuptools python-pip nginx libpcre3 libpcre3-dev python-matplotlib liblapack-dev gfortran libblas-dev rabbitmq-server
+sudo apt-get install python-dev python-setuptools python-pip nginx libpcre3 libpcre3-dev python-matplotlib liblapack-dev gfortran libblas-dev rabbitmq-server ntp
 sudo easy_install pip
 sudo easy_install scipy
 sudo pip install virtualenv virtualenvwrapper
@@ -85,3 +85,8 @@ sudo wget "https://raw.githubusercontent.com/celery/celery/3.1/extra/generic-ini
 sudo wget "https://raw.githubusercontent.com/celery/celery/3.1/extra/generic-init.d/celeryd" -O /etc/init.d/celeryd
 sudo chmod 755 /etc/init.d/celerybeat
 sudo chmod 755 /etc/init.d/celeryd
+
+sudo echo "America/New_York" > /etc/timezone
+sudo update-rc.d -f ntp remove
+sudo update-rc.d ntp defaults
+sudo ntpd -q
