@@ -20,6 +20,7 @@
                 <tr><th>Location: </th><td>{{ sensor.location_image }}</td></tr>
             {% endif %}
             <tr><th>Reading Value: </th><td>{{ sensor.reading_type }}</td></tr>
+            <tr><th>Reading Units: </th><td>{{ sensor.reading_units }}</td></tr>
             <tr><th><a href="{% url 'edit' sensor.file_system_location %}"><button type="button">Edit Sensor</button></a></th>
                 <td><a href="{% url 'delete' sensor.file_system_location %}"><button type="button">Delete Sensor</button></a></td></tr>
         </table>
