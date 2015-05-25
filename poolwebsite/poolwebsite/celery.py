@@ -5,11 +5,11 @@ import os, sys
 sys.path.insert(0,'/webapps/venv/lib/python2.7/site-packages/')
 
 from celery import Celery
-from celery.schedules import crontab
+# from celery.schedules import crontab
 
 #djcelery settings
-CELERY_RESULT_BACKEND='djcelery.backends.database:DatabaseBackend'
-CELERY_TIMEZONE = 'UTC'
+#CELERY_RESULT_BACKEND='djcelery.backends.database:DatabaseBackend'
+#CELERY_TIMEZONE = 'UTC'
 
 # set the default Django settings module for the 'celery' program.
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'poolwebsite.settings')
@@ -23,13 +23,13 @@ app = Celery('poolwebsite')
 app.config_from_object('django.conf:settings')
 app.autodiscover_tasks(lambda: settings.INSTALLED_APPS)
 
-CELERYBEAT_SCHEDULE = {
-    # Executes every minute
-    'Check-Sensors': {
-        'task': 'poolmonitor.tasks.read_sensors',
-        'schedule': crontab(minute='*/1')
-    },
-}
+# CELERYBEAT_SCHEDULE = {
+#     # Executes every minute
+#     'Check-Sensors': {
+#         'task': 'poolmonitor.tasks.read_sensors',
+#         'schedule': crontab(minute='*/1')
+#     },
+# }
 
 if __name__ == '__main__':
     app.start()

@@ -90,3 +90,6 @@ sudo echo "America/New_York" > /etc/timezone
 sudo update-rc.d -f ntp remove
 sudo update-rc.d ntp defaults
 sudo ntpd -q
+
+sudo update-rc.d celeryd defaults
+sudo update-rc.d celerybeat defaults
