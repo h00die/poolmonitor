@@ -46,7 +46,7 @@ def read_sensors():
         except models.Reading.DoesNotExist:
             whenToPoll = None
         if whenToPoll:
-            whenToPoll = whenToPoll + datetime.timedelta(0, 0, 0, 0, sensor.polling_interval) #minutes
+            whenToPoll = whenToPoll.reading_date + datetime.timedelta(0, 0, 0, 0, sensor.polling_interval) #minutes
             if whenToPoll <= timezone.now():
                 lines = read_temp_raw(sensor.file_system_location)
                 while lines[0].strip()[-3:] != 'YES':
