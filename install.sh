@@ -8,7 +8,7 @@
 sudo apt-get update
 sudo apt-get dist-upgrade
 sudo apt-get autoremove
-sudo apt-get install python-dev python-setuptools python-pip nginx libpcre3 libpcre3-dev python-matplotlib liblapack-dev gfortran libblas-dev rabbitmq-server ntp
+sudo apt-get install python-dev python-setuptools python-pip nginx libpcre3 libpcre3-dev python-matplotlib liblapack-dev gfortran libblas-dev ntp
 sudo easy_install pip
 sudo easy_install scipy
 sudo pip install virtualenv virtualenvwrapper

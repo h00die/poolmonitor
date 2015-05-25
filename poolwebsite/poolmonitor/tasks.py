@@ -2,11 +2,8 @@ from __future__ import absolute_import
 import time
 from poolmonitor import models
 from django.utils import timezone
-from celery import shared_task
 import os
 import subprocess
-from celery.utils.log import get_task_logger
-logger = get_task_logger(__name__)
 
 #this lower portion of the code is loosely based off of Simon Monk's code @ https://learn.adafruit.com/adafruits-raspberry-pi-lesson-11-ds18b20-temperature-sensing/software
 
@@ -16,8 +13,7 @@ logger = get_task_logger(__name__)
 #os.system('modprobe w1-therm')
 
 def read_temp_raw(device):
-    logger.info('[+] Reading Sensor %s' %(device))
-    print('[+] Reading Sensor %s' %(device))
+    self.stdout.write('[+] Reading Sensor %s' %(device))
     base_dir    = '/sys/bus/w1/devices/'
     device_file = '/w1_slave'
     catdata = subprocess.Popen(['cat','%s%s%s' %(base_dir, device, device_file)], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -36,11 +32,9 @@ def save_result(sensor, lines):
             r = models.Reading(reading = temp_f, reading_date = timezone.now(), sensor = sensor)
         elif sensor.reading_units == 'C':
             r = models.Reading(reading = temp_c, reading_date = timezone.now(), sensor = sensor)
-        logger.info('   Reading %s*%s' %(temp_f, sensor.reading_units))
-        print('   Reading %s*%s' %(temp_c, sensor.reading_units))
+        self.stdout.write('   Reading %s*%s' %(temp_f, sensor.reading_units))
         r.save()
 
-@shared_task
 def read_sensors():
     '''
         main loop for getting the sensors, and handling retrieving the data.
@@ -59,8 +53,7 @@ def read_sensors():
                     lines = read_temp_raw(sensor.file_system_location)
                     save_result(sensor, lines)
             else:
-                logger.info('[-] Sensor %s waiting on poll time of %s and its currently %s ' %(whenToPoll, tiemzone.now()))
-                print('[-] Sensor %s waiting on poll time of %s and its currently %s ' %(whenToPoll, tiemzone.now()))
+                self.stdout.write('[-] Sensor %s waiting on poll time of %s and its currently %s ' %(whenToPoll, tiemzone.now()))
                 continue
         else:
             lines = read_temp_raw(sensor.file_system_location)
