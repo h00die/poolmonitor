@@ -4,6 +4,7 @@ from poolmonitor import models
 from django.utils import timezone
 from celery import shared_task
 import os
+import subprocess
 
 #this lower portion of the code is loosely based off of Simon Monk's code @ https://learn.adafruit.com/adafruits-raspberry-pi-lesson-11-ds18b20-temperature-sensing/software
 
