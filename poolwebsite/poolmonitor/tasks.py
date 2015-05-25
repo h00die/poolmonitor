@@ -43,7 +43,7 @@ def read_sensors():
     '''
     for sensor in models.Sensor.objects.all():
         try:
-            whenToPoll = sensor.reading_set.latest(reading_date)
+            whenToPoll = sensor.reading_set.latest('reading_date')
         except models.Reading.DoesNotExist:
             whenToPoll = None
         if whenToPoll:
