@@ -40,7 +40,10 @@ sudo su
 echo "poolmonitor" > /etc/hostname
 exit
 source /webapps/venv/bin/activate
-python /webapps/poolmonitor/poolwebsite/manage.py --noinput
+python /webapps/poolmonitor/poolwebsite/manage.py makemigrations --noinput
+python /webapps/poolmonitor/poolwebsite/manage.py syncdb --noinput
+sudo chown www-data /webapps/poolmonitor/poolwebsite/poolmonitor.sqlite3
+sudo chmod 777 /webapps/poolmonitor/poolwebsite/poolmonitor.sqlite3
 deactivate
 cp -r /usr/lib/pymodules/python2.7/matplotlib /webapps/venv/lib/python2.7
 #sudo sed -i "/exit 0/c\printf \"Starting Celery\"\n/webapps/venv/bin/celery multi start w1 -A poolwebsite -B -l info --pidfile=/var/log/celery/run/%n.pid --logfile=/var/log/celery/%n%I.log\nexit 0" /etc/rc.local
