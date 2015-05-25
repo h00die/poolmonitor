@@ -18,7 +18,10 @@
                             <p><a href="{% url 'detail' s.file_system_location %}">{{ s.description_text.title }}</a></p>
                             <h1>
                                 {% if s.reading_type == "temp" %}
-                                    {{ s.reading_set.latest }}*F
+                                    {% if s.reading_units %}
+                                        {{ s.reading_set.latest }}*{{ s.reading_units }}
+                                    {% else %}
+                                        {{ s.reading_set.latest }}*F
                                 {% else %}
                                     {{ s.reading_set.latest }}
                                 {% endif %}
