@@ -35,6 +35,8 @@ def save_result(sensor, lines):
             r = models.Reading(reading = temp_c, reading_date = timezone.now(), sensor = sensor)
         print('   Reading %s*%s' %(temp_f, sensor.reading_units))
         r.save()
+    else:
+        print("[x] Parse error in line: %s" %(lines))
 
 def read_sensors():
     '''
@@ -50,6 +52,7 @@ def read_sensors():
             if whenToPoll <= timezone.now():
                 lines = read_temp_raw(sensor.file_system_location)
                 while lines[0].strip()[-3:] != 'YES':
+                    print(" [x] Sleeping from bad read on sensor")
                     time.sleep(0.2)
                     lines = read_temp_raw(sensor.file_system_location)
                     save_result(sensor, lines)
