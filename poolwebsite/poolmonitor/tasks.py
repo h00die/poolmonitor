@@ -14,7 +14,7 @@ import datetime
 #os.system('modprobe w1-therm')
 
 def read_temp_raw(device):
-    self.stdout.write('[+] Reading Sensor %s' %(device))
+    print('[+] Reading Sensor %s' %(device))
     base_dir    = '/sys/bus/w1/devices/'
     device_file = '/w1_slave'
     catdata = subprocess.Popen(['cat','%s%s%s' %(base_dir, device, device_file)], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -33,7 +33,7 @@ def save_result(sensor, lines):
             r = models.Reading(reading = temp_f, reading_date = timezone.now(), sensor = sensor)
         elif sensor.reading_units == 'C':
             r = models.Reading(reading = temp_c, reading_date = timezone.now(), sensor = sensor)
-        self.stdout.write('   Reading %s*%s' %(temp_f, sensor.reading_units))
+        print('   Reading %s*%s' %(temp_f, sensor.reading_units))
         r.save()
 
 def read_sensors():
@@ -54,7 +54,7 @@ def read_sensors():
                     lines = read_temp_raw(sensor.file_system_location)
                     save_result(sensor, lines)
             else:
-                self.stdout.write('[-] Sensor %s waiting on poll time of %s and its currently %s ' %(whenToPoll, tiemzone.now()))
+                print('[-] Sensor %s waiting on poll time of %s and its currently %s ' %(whenToPoll, tiemzone.now()))
                 continue
         else:
             lines = read_temp_raw(sensor.file_system_location)
