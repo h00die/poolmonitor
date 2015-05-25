@@ -89,3 +89,4 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 
 #djcelery settings
 CELERY_ACCEPT_CONTENT = ['json']
+CELERYBEAT_SCHEDULE_FILENAME = "/var/log/celery/celerybeat_schedule"
