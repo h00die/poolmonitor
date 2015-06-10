@@ -49,6 +49,7 @@ sudo echo "America/New_York" > /etc/timezone
 sudo update-rc.d -f ntp remove
 sudo update-rc.d ntp defaults
 sudo ntpd -q
+sudo sed -i "/exit 0/c\printf \"Updating Time\"\nntpd -q\nexit 0" /etc/rc.local
 
 line="* * * * * /webapps/venv/bin/python /webapps/poolmonitor/poolwebsite/manage.py get_sensor_data"
 (crontab -l; echo "$line" ) | crontab -
