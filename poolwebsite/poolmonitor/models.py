@@ -35,7 +35,7 @@ class Reading(models.Model):
         A reading from the sensor (ie temperature)
     """
 
-    reading      = models.IntegerField('Reading Value')
+    reading      = models.DecimalField('Reading Value',max_digits=5, decimal_places=2)
     reading_date = models.DateTimeField('Reading Date', default=timezone.now)
     sensor       = models.ForeignKey(Sensor)
     

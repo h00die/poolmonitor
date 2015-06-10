@@ -17,7 +17,7 @@
                         <td>
                             <p><a href="{% url 'detail' s.file_system_location %}">{{ s.description_text.title }}</a></p>
                             <h1>
-                                {% if s.reading_type == "temp" %}
+                                {% if s.reading_type == "Temp" %}
                                     {% if s.reading_units %}
                                         {{ s.reading_set.latest }}*{{ s.reading_units }}
                                     {% else %}
