@@ -30,7 +30,7 @@ def graph(request):
      #based on http://stackoverflow.com/questions/11163485/serving-generated-charts-via-ajax
      dateRange = int(request.GET.get("count",5))
      sensor = request.GET.get("sensor","")
-     toPlot = Reading.objects.filter(sensor=sensor).order_by('-reading_date')[[:dateRange]
+     toPlot = Reading.objects.filter(sensor=sensor).order_by('-reading_date')[:dateRange]
      dates = [d.reading_date for d in toPlot]
      values = [d.reading for d in toPlot]
      plt.plot(dates,values, marker='o', linestyle='--', linewidth=2.0, color='b')
@@ -46,7 +46,7 @@ def chart(request):
      #based on http://stackoverflow.com/questions/11163485/serving-generated-charts-via-ajax
      dateRange = int(request.GET.get("count",5))
      sensor = request.GET.get("sensor","")
-     toPlot = Reading.objects.filter(sensor=sensor).order_by('-reading_date')[[:dateRange]
+     toPlot = Reading.objects.filter(sensor=sensor).order_by('-reading_date')[:dateRange]
      result = "<table border=1><tr><th>Date</th><th>Reading</th></tr>"
      for r in toPlot:
         result += "<tr><td>%s</td><td>%s</td></tr>" %(r.reading_date.strftime("%d/%m/%y %H:%M"), r.reading)
