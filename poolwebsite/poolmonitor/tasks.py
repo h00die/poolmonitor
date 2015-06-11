@@ -49,6 +49,7 @@ def read_sensors():
             whenToPoll = None
         if whenToPoll:
             whenToPoll = whenToPoll.reading_date + datetime.timedelta(0, 0, 0, 0, sensor.polling_interval) #minutes
+            whenToPoll = whenToPoll.replace(microseconds=0, second=0) #clear out time that was taken to actually poll the sensors
             if whenToPoll <= timezone.now():
                 lines = read_temp_raw(sensor.file_system_location)
                 while lines[0].strip()[-3:] != 'YES':

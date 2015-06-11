@@ -32,7 +32,7 @@ sudo mkdir -p /etc/uwsgi/vassals
 sudo ln -s /webapps/poolmonitor/poolwebsite/poolwebsite_uwsgi.ini /etc/uwsgi/vassals/
 sudo touch /var/log/uwsgi.log
 sudo chown www-data:www-data /var/log/uwsgi.log
-sudo sed -i "/exit 0/c\printf \"Starting WSGI\"\n/usr/local/bin/uwsgi --emperor /etc/uwsgi/vassals --uid www-data --gid www-data\nexit 0" /etc/rc.local
+sudo sed -i "/exit 0/c\printf \"Starting WSGI\"\n/usr/local/bin/uwsgi --emperor /etc/uwsgi/vassals --uid www-data --gid www-data --logto2 /var/log/uwsgi.log\nexit 0" /etc/rc.local
 #sudo sed -i "/import os/c\import os,sys\nsys.path.insert(0,\/webapps\/poolwebsite\/poolmonitor))" /webapps/poolwebsite/poolwebsite/wsgi.py
 sudo su
 echo "poolmonitor" > /etc/hostname
@@ -45,11 +45,12 @@ sudo chown -R www-data /webapps/poolmonitor/
 deactivate
 cp -r /usr/lib/pymodules/python2.7/matplotlib /webapps/venv/lib/python2.7
 
+sudo cp /usr/share/zoneinfo/America/New_York /etc/localtime
 sudo echo "America/New_York" > /etc/timezone
-sudo update-rc.d -f ntp remove
-sudo update-rc.d ntp defaults
+#sudo update-rc.d -f ntp remove
+#sudo update-rc.d ntp defaults
 sudo ntpd -q
-sudo sed -i "/exit 0/c\printf \"Updating Time\"\nntpd -q\nexit 0" /etc/rc.local
+#sudo sed -i "/exit 0/c\printf \"Updating Time\"\nntpd -q\nexit 0" /etc/rc.local
 
 line="* * * * * /webapps/venv/bin/python /webapps/poolmonitor/poolwebsite/manage.py get_sensor_data"
 (crontab -l; echo "$line" ) | crontab -
