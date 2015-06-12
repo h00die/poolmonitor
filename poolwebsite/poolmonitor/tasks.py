@@ -30,9 +30,9 @@ def save_result(sensor, lines):
         temp_c = float(temp_string) / 1000.0
         temp_f = temp_c * 9.0 / 5.0 + 32.0
         if sensor.reading_units == 'F':
-            r = models.Reading(reading = temp_f, reading_date = timezone.now(), sensor = sensor)
+            r = models.Reading(reading = temp_f, reading_date = timezone.localtime(timezone.now()), sensor = sensor)
         elif sensor.reading_units == 'C':
-            r = models.Reading(reading = temp_c, reading_date = timezone.now(), sensor = sensor)
+            r = models.Reading(reading = temp_c, reading_date = timezone.localtime(timezone.now()), sensor = sensor)
         print('   Reading %s*%s' %(temp_f, sensor.reading_units))
         r.save()
     else:
@@ -50,7 +50,7 @@ def read_sensors():
         if whenToPoll:
             whenToPoll = whenToPoll.reading_date + datetime.timedelta(0, 0, 0, 0, sensor.polling_interval) #minutes
             whenToPoll = whenToPoll.replace(microsecond=0, second=0) #clear out time that was taken to actually poll the sensors
-            if whenToPoll <= timezone.now():
+            if whenToPoll <= timezone.localtime(timezone.now()):
                 lines = read_temp_raw(sensor.file_system_location)
                 while lines[0].strip()[-3:] != 'YES':
                     print(" [x] Sleeping from bad read on sensor")
