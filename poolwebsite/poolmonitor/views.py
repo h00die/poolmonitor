@@ -3,6 +3,7 @@ from django.http import Http404, HttpResponse
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django import forms
 import re
+from dateutil import tz
 from django.core.urlresolvers import reverse_lazy
 
 import tempfile, os
@@ -13,6 +14,8 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
 from .models import Sensor, Reading
+
+to_zone = tz.tzlocal()
 
 def index(request):
     sensors= Sensor.objects.all()
@@ -31,7 +34,7 @@ def graph(request):
      dateRange = int(request.GET.get("count",5))
      sensor = request.GET.get("sensor","")
      toPlot = Reading.objects.filter(sensor=sensor).order_by('-reading_date')[:dateRange]
-     dates = [d.reading_date for d in toPlot]
+     dates = [d.reading_date.astimezone(to_zone) for d in toPlot]
      values = [d.reading for d in toPlot]
      plt.plot(dates,values, marker='o', linestyle='--', linewidth=2.0, color='b')
      plt.xlabel('Dates')
@@ -49,7 +52,7 @@ def chart(request):
      toPlot = Reading.objects.filter(sensor=sensor).order_by('-reading_date')[:dateRange]
      result = "<table border=1><tr><th>Date</th><th>Reading</th></tr>"
      for r in toPlot:
-        result += "<tr><td>%s</td><td>%s</td></tr>" %(r.reading_date.strftime("%d/%m/%y %H:%M"), r.reading)
+        result += "<tr><td>%s</td><td>%s</td></tr>" %(r.reading_date.astimezone(to_zone).strftime("%d/%m/%y %H:%M"), r.reading)
      return HttpResponse(result + "</table>")
 
 class SensorForm(forms.ModelForm):
