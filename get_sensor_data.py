@@ -1,5 +1,5 @@
 #!/usr/bin/python
-
+from __future__ import print_function
 import subprocess
 import datetime
 from ISStreamer.Streamer import Streamer
@@ -7,6 +7,7 @@ import sys
 import os
 import argparse
 import re
+import time
 
 INFO    = "\033[93m[-]\033[0m"
 SUCCESS = "\033[92m[+]\033[0m"
@@ -20,15 +21,16 @@ units = "F"
 base_dir    = '/sys/bus/w1/devices/'
 device_file = '/w1_slave'
 
-parser = argparse.ArgumentParser(description='A program to send (pool) temperature data from '+
-                                 'a RaspberryPI to InitialState')
-parser.add_argument("apiKey",  help="API Key for Initial State (www.initialstate.com)")
-parser.add_argument("sensor",help="Sensor to probe, i.e. /sys/bus/w1/devices/SENSOR/w1_slave")
-parser.add_argument("bucket",help="Bucket name on Initial State for this data")
-parser.add_argument("-d", "--delay", default=900 ,type=int,
-                    help="Delay between sensor reads (seconds)")
+parser = argparse.ArgumentParser()
+parser.description = 'A program to send (pool) temperature data from a RaspberryPI to InitialState'
+parser.epilog = "get_sensor_data.py -v AAaAaaaaaAaaAaAaaAA1AaAAaa1aaAaA '28-0000066f9276' 'Pool Temperature'"
+parser.add_argument("apiKey", help="API Key for Initial State (www.initialstate.com)")
+parser.add_argument("sensor", help="Sensor to probe, i.e. /sys/bus/w1/devices/SENSOR/w1_slave")
+parser.add_argument("bucket", help="Bucket name on Initial State for this data")
+parser.add_argument("-d", "--delay", default=120 ,type=int,
+                    help="Delay between sensor reads (seconds).  >104 for Free Initial State account.")
 parser.add_argument("-c", "--celsius", action="store_true",
-                    help="Use Celsius instead of Feirenheight")
+                    help="Use Celsius instead of Fahrenheit")
 parser.add_argument("-v", "--verbose", help="increase output verbosity",
                     action="store_true")
 args = parser.parse_args()
@@ -51,7 +53,7 @@ if args.celsius:
     units = "C"
 
 #make sure the sensors are initialized
-if verbose: print(SUCCESS, "Initializing w1 sensors")
+if args.verbose: print(SUCCESS, "Initializing w1 sensors")
 os.system('modprobe w1-gpio')
 os.system('modprobe w1-therm')
 #this lower portion of the code is loosely based off of Simon Monk's code @ https://learn.adafruit.com/adafruits-raspberry-pi-lesson-11-ds18b20-temperature-sensing/software
@@ -80,12 +82,14 @@ def save_result(sensor, lines, streamer):
 
 #https://github.com/InitialState/python_appender/blob/master/example_app/example_command_line.py
 def main():
-    streamer = Streamer(bucket_name=bucket, access_key=access_key)
+    streamer = Streamer(bucket_name=bucket, access_key=apiKey)
 
     try:
         while True:
             resultLines = read_temp_raw(args.sensor)
             save_result(args.sensor, resultLines, streamer)
+            print(INFO,"Cycle finished, sleeping %ss" %(args.delay))
+            time.sleep(args.delay)
     except KeyboardInterrupt:
         streamer.close()
 
