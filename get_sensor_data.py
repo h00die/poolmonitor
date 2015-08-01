@@ -72,11 +72,8 @@ def save_result(sensor, lines, streamer):
         temp_string = lines[1][equals_pos+2:]
         temp_c = float(temp_string) / 1000.0
         temp_f = temp_c * 9.0 / 5.0 + 32.0
-        if units == 'F':
-            streamer.log(sensor, temp_f)
-        elif units == 'C':
-            streamer.log(sensor, temp_c)
-        print(SUCCESS,'  Reading %s*%s' %(temp_f if units == 'F' else temp_c, units))
+        streamer.log(sensor, temp_f if units == 'F' else temp_c)
+        print(SUCCESS,'  Temperature %s*%s' %(temp_f if units == 'F' else temp_c, units))
     else:
         print(FAIL,"Parse error in line: %s" %(lines))
 
