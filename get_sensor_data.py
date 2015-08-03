@@ -79,7 +79,7 @@ def save_result(sensor, lines, streamer):
 
 #https://github.com/InitialState/python_appender/blob/master/example_app/example_command_line.py
 def main():
-    streamer = Streamer(bucket_name=bucket, access_key=apiKey)
+    streamer = Streamer(bucket_name=args.bucket, access_key=apiKey)
 
     try:
         while True:
