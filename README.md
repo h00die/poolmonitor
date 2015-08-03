@@ -27,10 +27,10 @@ I dropped my sensor in about a foot, in the shallow end, near the jets.  This sh
 
 ![sensor](https://github.com/h00die/poolmonitor/blob/master/docs/submerged sensor.png)
 
-## InitialState
-Originally I developed a Django powered website to handle the data, and show graphs.  Then I learned of Initialstate.com which did all of what I wanted, and much more in an easier fashion.
+## Initial State
+Originally I developed a Django powered website to handle the data, and show graphs.  Then I learned of initialstate.com which did all of what I wanted, and much more in an easier fashion.
 Since then, I've contacted support on a Saturday at 3pm EST.  The Founder/CEO of the company responded in ~15min with lots of good helpful (technical) answers.  What better do you want from a company?
-One thing to keep in mind, is that the InitialState log sender queues 10 at a time, so don't expect your data to show up immediately!
+One thing to keep in mind, is that the ISStreamer library queues 10 events by default, so if you want your data to show up immediately, make sure to change this or flush the queue as [per the instructions](https://github.com/InitialState/python_appender#advanced-use) if you want to ensure the visualization is as real-time as possible.
 
 ## Example Data
 InitialState has quite a few different views, and works with Samsung SmartThings, but just a quick view of what one day of data for my pool looks like
