@@ -24,10 +24,15 @@ I also, later, placed tin foil over the top, as well as heat sinks, to prevent t
 ![deployed 2](https://github.com/h00die/poolmonitor/blob/master/docs/raspberrypi2.png)
 
 I dropped my sensor in about a foot, in the shallow end, near the jets.  This should be low enough to avoid surface temperature fluctuation, yet high enough to avoid getting eatten by the vaccum stingray.
-![sensor](https://github.com/h00die/poolmonitor/blob/master/docs/submerged sensor.png)
 
+![sensor](https://github.com/h00die/poolmonitor/blob/master/docs/submerged sensor.png)
 
 ## InitialState
 Originally I developed a Django powered website to handle the data, and show graphs.  Then I learned of Initialstate.com which did all of what I wanted, and much more in an easier fashion.
 Since then, I've contacted support on a Saturday at 3pm EST.  The Founder/CEO of the company responded in ~15min with lots of good helpful (technical) answers.  What better do you want from a company?
 One thing to keep in mind, is that the InitialState log sender queues 10 at a time, so don't expect your data to show up immediately!
+
+## Example Data
+InitialState has quite a few different views, and works with Samsung SmartThings, but just a quick view of what one day of data for my pool looks like
+
+![InitialState](https://github.com/h00die/poolmonitor/blob/master/docs/initialstate.png)
