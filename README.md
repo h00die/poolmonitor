@@ -4,7 +4,7 @@ Originally developed as a django website hosted locally, now simply reports temp
 ## Requirements
 1. Sensors as described in next section
 2. RaspberryPi compatible with sensor
-3. InitialState.com account, and api key
+3. initialstate.com account, and api key
 
 ## Sensor Install/Configure
 This should be used as a general overview of adding the water proof temperature sensor: https://learn.adafruit.com/adafruits-raspberry-pi-lesson-11-ds18b20-temperature-sensing/overview
@@ -35,4 +35,4 @@ One thing to keep in mind, is that the ISStreamer library queues 10 events by de
 ## Example Data
 InitialState has quite a few different views, and works with Samsung SmartThings, but just a quick view of what one day of data for my pool looks like
 
-![InitialState](https://github.com/h00die/poolmonitor/blob/master/docs/initialstate.png)
+![Initial State](https://github.com/h00die/poolmonitor/blob/master/docs/initialstate.png)
