@@ -6,6 +6,16 @@ Originally developed as a django website hosted locally, now simply reports temp
 2. RaspberryPi compatible with sensor
 3. initialstate.com account, and api key
 
+## Purchase List
+1. [Large Plastic Project Enclosure - Weatherproof with Clear Top](https://www.adafruit.com/products/905)
+2. [Adafruit Assembled Pi Cobbler Breakout + Cable for Raspberry Pi Adafruit Assembled Pi Cobbler Breakout + Cable for Raspberry Pi - Model B](https://www.adafruit.com/products/905)
+3. [Half-size breadboard Half-size breadboard](https://www.adafruit.com/products/64)
+4. [Premium Male/Male Jumper Wires - 40 x 3 Premium Male/Male Jumper Wires - 40 x 3" (75mm)](https://www.adafruit.com/products/759)
+5. [Waterproof DS18B20 Digital temperature sensor + extras Waterproof DS18B20 Digital temperature sensor + extras](https://www.adafruit.com/products/381)
+And of course a raspberryPi (B to work with Pi Cobbler) and heatsink(s)
+6. [Raspberry Pi Model B](https://www.adafruit.com/products/998)
+7. [Aluminum Heatsink set for Raspberry Pi](http://www.amazon.com/Aluminum-Heatsink-set-Raspberry-Pi/dp/B00A88DVTG)
+
 ## Sensor Install/Configure
 This should be used as a general overview of adding the water proof temperature sensor: https://learn.adafruit.com/adafruits-raspberry-pi-lesson-11-ds18b20-temperature-sensing/overview
 
