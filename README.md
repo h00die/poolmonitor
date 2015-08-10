@@ -14,6 +14,7 @@ Originally developed as a django website hosted locally, now simply reports temp
 5. [Waterproof DS18B20 Digital temperature sensor + extras Waterproof DS18B20 Digital temperature sensor + extras](https://www.adafruit.com/products/381)
 
 And of course a raspberryPi (B to work with Pi Cobbler) and heatsink(s)
+
 6. [Raspberry Pi Model B](https://www.adafruit.com/products/998)
 7. [Aluminum Heatsink set for Raspberry Pi](http://www.amazon.com/Aluminum-Heatsink-set-Raspberry-Pi/dp/B00A88DVTG)
 
