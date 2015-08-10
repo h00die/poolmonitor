@@ -53,6 +53,6 @@ Since then, I've contacted support on a Saturday at 3pm EST.  The Founder/CEO of
 One thing to keep in mind, is that the ISStreamer library queues 10 events by default, so if you want your data to show up immediately, make sure to change this or flush the queue as [per the instructions](https://github.com/InitialState/python_appender#advanced-use) if you want to ensure the visualization is as real-time as possible.
 
 ## Example Data
-Initial State has quite a few different views, and works with Samsung SmartThings, but just a quick view of what one day of data for my pool looks like
+Initial State has quite a few different views, and works with Samsung SmartThings, but just a quick view of what one week or so of data for my pool looks like
 
 ![Initial State](https://github.com/h00die/poolmonitor/blob/master/docs/initialstate.png)
