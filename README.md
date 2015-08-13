@@ -15,8 +15,8 @@ Originally developed as a django website hosted locally, now simply reports temp
 
 And of course a raspberryPi (B to work with Pi Cobbler) and heatsink(s)
 
-6. [Raspberry Pi Model B](https://www.adafruit.com/products/998)
-7. [Aluminum Heatsink set for Raspberry Pi](http://www.amazon.com/Aluminum-Heatsink-set-Raspberry-Pi/dp/B00A88DVTG)
+1. [Raspberry Pi Model B](https://www.adafruit.com/products/998)
+2. [Aluminum Heatsink set for Raspberry Pi](http://www.amazon.com/Aluminum-Heatsink-set-Raspberry-Pi/dp/B00A88DVTG)
 
 ## Sensor Install/Configure
 This should be used as a general overview of adding the water proof temperature sensor: https://learn.adafruit.com/adafruits-raspberry-pi-lesson-11-ds18b20-temperature-sensing/overview

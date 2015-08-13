@@ -23,10 +23,11 @@ device_file = '/w1_slave'
 
 parser = argparse.ArgumentParser()
 parser.description = 'A program to send (pool) temperature data from a RaspberryPI to InitialState'
-parser.epilog = "get_sensor_data.py -v AAaAaaaaaAaaAaAaaAA1AaAAaa1aaAaA '28-0000066f9276' 'Pool Temperature'"
+parser.epilog = "get_sensor_data.py -v AAaAaaaaaAaaAaAaaAA1AaAAaa1aaAaA '28-0000066f9276' 'Pool Temperature' -k 'poolkey'"
 parser.add_argument("apiKey", help="API Key for Initial State (www.initialstate.com)")
 parser.add_argument("sensor", help="Sensor to probe, i.e. /sys/bus/w1/devices/SENSOR/w1_slave")
 parser.add_argument("bucket", help="Bucket name on Initial State for this data")
+parser.add_argument("-k", "--bucket_key", help="Bucket Key https://github.com/InitialState/python_appender#buckets")
 parser.add_argument("-d", "--delay", default=120 ,type=int,
                     help="Delay between sensor reads (seconds).  >104 for Free Initial State account.")
 parser.add_argument("-c", "--celsius", action="store_true",
@@ -79,7 +80,7 @@ def save_result(sensor, lines, streamer):
 
 #https://github.com/InitialState/python_appender/blob/master/example_app/example_command_line.py
 def main():
-    streamer = Streamer(bucket_name=args.bucket, access_key=apiKey)
+    streamer = Streamer(bucket_name=args.bucket, access_key=apiKey, bucket_key=args.bucket_key)
 
     try:
         while True:
